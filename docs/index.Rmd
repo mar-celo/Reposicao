@@ -1,0 +1,136 @@
+---
+title: "Taxa de Reposição de Servidores"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: rows
+    vertical_layout: scroll
+    theme: bootstrap
+---
+
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(scales)
+
+dados <- readr::read_csv2("data-raw/taxa.csv", locale = readr::locale(decimal_mark = ",", grouping_mark = ".")) |> 
+  janitor::clean_names() |> 
+  dplyr::mutate(Taxa = round((ingressos/saidas), digits =  2), 
+                ano = as.factor(ano),
+                saidas = saidas * -1) 
+
+```
+
+Row {data-height=200, data-width=350}
+-------------------------------------
+###
+
+```{r fig.width=2, fig.height=5}
+Percentual <- function(reposicao) {
+  Percentual <- scales::percent(reposicao)
+  return(Percentual)
+}
+
+
+p <- dados |> 
+  ggplot2::ggplot() +
+  ggplot2::aes(x = ano , y = reposicao) +
+  ggplot2::geom_bar(stat = "identity", fill = "#112446") +
+  ggplot2::geom_text(
+    ggplot2::aes(
+      y = reposicao + 0.05,
+      label = Percentual(reposicao) 
+    ),
+    vjust = -3.8,
+    position = ggplot2::position_dodge(width = 1), 
+    size = 3
+  ) +
+  ggplot2::xlab("")  +
+  ggplot2::ylab("") +
+  ggplot2::ggtitle(label = "Taxa de Reposição de Servidores") +
+  ggplot2::scale_y_continuous(labels = scales::percent)+
+  ggplot2::theme_minimal(base_size = 8)
+
+plotly::ggplotly(p)
+
+```
+
+Row {data-height=100,  data-width=350}
+-------------------------------------
+###
+
+```{r, fig.width=5, fig.height=5 }
+library(echarts4r)
+
+formatar_numero_br <- function(serie) {
+  htmlwidgets::JS(
+    glue::glue(
+      "function(params) {return Intl.NumberFormat('pt-BR', { style: 'decimal'}).format(params.value[{{serie}}]);}",
+      .open = "{{",
+      .close = "}}"
+    )
+  )
+}
+e1 <- dados |> 
+  e_charts(
+    ano,
+    height = 195,
+    elementId = "chart1" # specify id
+  ) |> 
+  e_bar(ingressos, name = "Ingressos", stack = "grp") |> 
+  e_bar(saidas, name = "Saídas", stack = "grp") |>  
+  #e_datazoom(show = FALSE) |>  # hide
+  echarts4r::e_legend(right = 0) |>
+  e_format_y_axis(
+    suffix = "",
+    prefix = "",
+    formatter = e_axis_formatter(locale = "PT", digits = 0)
+  )|>
+  echarts4r::e_theme_custom('{"color":["#004580","#ef0219"]}') |>  # theme
+  echarts4r::e_tooltip(trigger = "axis")
+
+  
+e2 <- dados |> 
+  e_charts(
+    ano,
+    height = 185
+  ) |> 
+  e_line(Taxa) |> 
+  e_y_axis(formatter = e_axis_formatter(style = "percent", digits = 0)) |> 
+  #e_datazoom() |>
+  echarts4r::e_title("Taxa de Reposição", "Poder Executivo Federal") |>
+  echarts4r::e_legend(right = 0) |>
+  echarts4r::e_theme_custom('{"color":["#004580","#ef0219"]}') |>  # theme
+  echarts4r::e_tooltip(
+    formatter = htmlwidgets::JS("function(params){
+                                return(
+                                'Ano: ' + params.value[0] + 
+                                '<br />Taxa: '+params.value[1]*100 + '%')}")
+    ) 
+  #e_locale("PT-br") |>
+e_arrange(e2, e1)
+```
+
+```{r}
+dados |> 
+  e_charts(ano) |> 
+  e_bar(ingressos, name = "Ingressos") |> 
+  e_bar(saidas, name = "Saídas") |> 
+  e_step(Taxa, name = "Taxa de Reposição") |> 
+  e_title("Poder Executivo Federal") 
+```
+
+```{r}
+
+tidyr::pivot_wider(dados,names_from = ano, values_from = c(ingressos, saidas, reposicao, Taxa)) |> View()
+
+```
+
+```{r}
+longer <- tidyr::pivot_longer(dados, cols = c(ingressos, saidas,  Taxa), values_to = "valor") |> dplyr::select(ano, name, valor)
+```
+
+
+```{r}
+wider <- longer |> tidyr::pivot_wider(names_from = ano, values_from = valor)
+```
+

@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<style>body{background-color:white;}</style>
+<script src="lib/htmlwidgets-1.6.2/htmlwidgets.js"></script>
+<script src="lib/echarts4r-4.8.0/echarts-en.min.js"></script>
+<script src="lib/echarts4r-4.8.0/ecStat.min.js"></script>
+<script src="lib/echarts4r-4.8.0/dataTool.min.js"></script>
+<script src="lib/echarts4r-binding-0.4.4/echarts4r.js"></script>
+
+</head>
+<body>
+<div>
+  <div id="htmlwidget-fc0ca65f2febf3a68eae" style="width:100%;height:185px;" class="echarts4r html-widget "></div>
+  <script type="application/json" data-for="htmlwidget-fc0ca65f2febf3a68eae">{"x":{"theme":"custom","tl":false,"draw":true,"renderer":"canvas","events":[],"buttons":[],"opts":{"yAxis":[{"show":true,"axisLabel":{"formatter":"function(value, index) {\n        var fmt = new Intl.NumberFormat('en', {\"style\":\"percent\",\"minimumFractionDigits\":0,\"maximumFractionDigits\":0,\"currency\":\"USD\"});\n        return fmt.format(value);\n    }"}}],"xAxis":[{"data":["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"type":"category","boundaryGap":true}],"legend":{"data":["Taxa"],"show":true,"type":"plain","right":0},"series":[{"data":[{"value":["2012","1.05"]},{"value":["2013","1.30"]},{"value":["2014","1.59"]},{"value":["2015","0.94"]},{"value":["2016","1.00"]},{"value":["2017","0.68"]},{"value":["2018","0.58"]},{"value":["2019","0.32"]},{"value":["2020","0.38"]},{"value":["2021","0.35"]},{"value":["2022","0.71"]},{"value":["2023","0.63"]}],"yAxisIndex":0,"xAxisIndex":0,"name":"Taxa","type":"line","coordinateSystem":"cartesian2d"}],"title":[{"text":"Taxa de Reposição","subtext":"Poder Executivo Federal"}],"tooltip":{"trigger":"item","formatter":"function(params){\n                                return(\n                                'Ano: ' + params.value[0] + \n                                '<br />Taxa: '+params.value[1]*100 + '%')}"}},"dispose":true,"theme2":true,"customTheme":"{\"color\":[\"#004580\",\"#ef0219\"]}","theme_name":"custom"},"evals":["opts.yAxis.0.axisLabel.formatter","opts.tooltip.formatter"],"jsHooks":[]}</script>
+</div>
+<div>
+  <div id="chart1" style="width:100%;height:195px;" class="echarts4r html-widget "></div>
+  <script type="application/json" data-for="chart1">{"x":{"theme":"custom","tl":false,"draw":true,"renderer":"canvas","events":[],"buttons":[],"opts":{"yAxis":[{"show":true,"axisLabel":{"formatter":"function(value, index) {\n        var fmt = new Intl.NumberFormat('PT', {\"style\":\"decimal\",\"minimumFractionDigits\":0,\"maximumFractionDigits\":0,\"currency\":\"USD\"});\n        return fmt.format(value);\n    }"}}],"xAxis":[{"data":["2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023"],"type":"category","boundaryGap":true}],"legend":{"data":["Ingressos","Saídas"],"show":true,"type":"plain","right":0},"series":[{"data":[{"value":["2012","23780"]},{"value":["2013","31108"]},{"value":["2014","39902"]},{"value":["2015","21792"]},{"value":["2016","20809"]},{"value":["2017","18450"]},{"value":["2018","13400"]},{"value":["2019","13437"]},{"value":["2020"," 6536"]},{"value":["2021"," 5068"]},{"value":["2022","12584"]},{"value":["2023"," 7575"]}],"name":"Ingressos","type":"bar","yAxisIndex":0,"xAxisIndex":0,"coordinateSystem":"cartesian2d","stack":"grp"},{"data":[{"value":["2012","-22703"]},{"value":["2013","-23959"]},{"value":["2014","-25036"]},{"value":["2015","-23194"]},{"value":["2016","-20895"]},{"value":["2017","-27266"]},{"value":["2018","-23116"]},{"value":["2019","-42099"]},{"value":["2020","-17075"]},{"value":["2021","-14376"]},{"value":["2022","-17782"]},{"value":["2023","-12089"]}],"name":"Saídas","type":"bar","yAxisIndex":0,"xAxisIndex":0,"coordinateSystem":"cartesian2d","stack":"grp"}],"tooltip":{"trigger":"axis"}},"dispose":true,"theme2":true,"customTheme":"{\"color\":[\"#004580\",\"#ef0219\"]}","theme_name":"custom"},"evals":["opts.yAxis.0.axisLabel.formatter"],"jsHooks":[]}</script>
+</div>
+</body>
+</html>
