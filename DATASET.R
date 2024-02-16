@@ -15,55 +15,55 @@ library(echarts4r)
 library(htmltools)
 
 
-ingressos <- read_delim("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/ingressos.csv",
-                        delim = ";", escape_double = FALSE, trim_ws = TRUE)
-
-df_ingressos <-  ingressos |>
-  filter(`Tipo de Ingresso (Ingresso)` == "Concurso",
-         `Sem GDF (Ingresso)` == "Sim"
-         ) |>
-  group_by(`Ano Ingresso`) |>
-  summarise(
-    Ingressos = sum(`#qtd_ingresso` )
-  )
-
-df <- vroom::vroom("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/aposentadorias.csv")
-#glimpse(df_aposent)
-
-df_aposent <- df |>
-  filter(`Sem GDF (Aposentadoria)` == "Sim") |>
-  group_by(`Ano Aposentadoria`) |>
-  summarise(
-    Total = sum(`#QtdAposentadoria`)
-  )
-
-df <- vroom::vroom("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/desligamentos.csv")
-#glimpse(df_deslig)
-
-df_deslig <- df |>
-  #filter(`Sem GDF (Aposentadoria)` == "Sim") |>
-  group_by(`Desligamentos (ano de exclusão)`) |>
-  summarise(
-    Total = sum(`Desligamentos (servidores)`)
-  )
-
-df_saida <-  df_deslig |>
-  dplyr::left_join(df_aposent,
-                   by = c("Desligamentos (ano de exclusão)" = "Ano Aposentadoria")) |>
-      dplyr::mutate(
-        Saidas = Total.x + Total.y
-      )
-
-data <- df_ingressos |>
-  left_join(df_saida,
-            by = c("Ano Ingresso" = "Desligamentos (ano de exclusão)")) |>
-  filter(`Ano Ingresso` >= 2012) |>
-  rename( Ano = `Ano Ingresso`) |>
-  mutate(Reposicao = Ingressos/Saidas) |>
-  select(-Total.x, -Total.y)
-
-
-readr::write_csv2(data, "data-raw/taxa.csv")
+# ingressos <- read_delim("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/ingressos.csv",
+#                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
+# 
+# df_ingressos <-  ingressos |>
+#   filter(`Tipo de Ingresso (Ingresso)` == "Concurso",
+#          `Sem GDF (Ingresso)` == "Sim"
+#          ) |>
+#   group_by(`Ano Ingresso`) |>
+#   summarise(
+#     Ingressos = sum(`#qtd_ingresso` )
+#   )
+# 
+# df <- vroom::vroom("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/aposentadorias.csv")
+# #glimpse(df_aposent)
+# 
+# df_aposent <- df |>
+#   filter(`Sem GDF (Aposentadoria)` == "Sim") |>
+#   group_by(`Ano Aposentadoria`) |>
+#   summarise(
+#     Total = sum(`#QtdAposentadoria`)
+#   )
+# 
+# df <- vroom::vroom("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/desligamentos.csv")
+# #glimpse(df_deslig)
+# 
+# df_deslig <- df |>
+#   #filter(`Sem GDF (Aposentadoria)` == "Sim") |>
+#   group_by(`Desligamentos (ano de exclusão)`) |>
+#   summarise(
+#     Total = sum(`Desligamentos (servidores)`)
+#   )
+# 
+# df_saida <-  df_deslig |>
+#   dplyr::left_join(df_aposent,
+#                    by = c("Desligamentos (ano de exclusão)" = "Ano Aposentadoria")) |>
+#       dplyr::mutate(
+#         Saidas = Total.x + Total.y
+#       )
+# 
+# data <- df_ingressos |>
+#   left_join(df_saida,
+#             by = c("Ano Ingresso" = "Desligamentos (ano de exclusão)")) |>
+#   filter(`Ano Ingresso` >= 2012) |>
+#   rename( Ano = `Ano Ingresso`) |>
+#   mutate(Reposicao = Ingressos/Saidas) |>
+#   select(-Total.x, -Total.y)
+# 
+# 
+# readr::write_csv2(data, "data-raw/taxa.csv")
 
 
 data <- readr::read_csv2("data-raw/taxa.csv", locale = readr::locale(decimal_mark = ",", grouping_mark = ".")) |> 
