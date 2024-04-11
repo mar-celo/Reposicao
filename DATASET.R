@@ -15,7 +15,7 @@ library(echarts4r)
 library(htmltools)
 
 
-# ingressos <- read_delim("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/ingressos.csv",
+# ingressos <- read_delim("Y:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/ingressos.csv",
 #                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
 # 
 # df_ingressos <-  ingressos |>
@@ -27,7 +27,7 @@ library(htmltools)
 #     Ingressos = sum(`#qtd_ingresso` )
 #   )
 # 
-# df <- vroom::vroom("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/aposentadorias.csv")
+# df <- vroom::vroom("Y:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/aposentadorias.csv")
 # #glimpse(df_aposent)
 # 
 # df_aposent <- df |>
@@ -37,7 +37,7 @@ library(htmltools)
 #     Total = sum(`#QtdAposentadoria`)
 #   )
 # 
-# df <- vroom::vroom("X:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/desligamentos.csv")
+# df <- vroom::vroom("Y:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/desligamentos.csv")
 # #glimpse(df_deslig)
 # 
 # df_deslig <- df |>
@@ -64,7 +64,7 @@ library(htmltools)
 # 
 # 
 # readr::write_csv2(data, "data-raw/taxa.csv")
-
+# 
 
 data <- readr::read_csv2("data-raw/taxa.csv", locale = readr::locale(decimal_mark = ",", grouping_mark = ".")) |> 
   janitor::clean_names() |> 
