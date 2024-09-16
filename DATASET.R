@@ -15,9 +15,9 @@ library(echarts4r)
 library(htmltools)
 
 
-# ingressos <- read_delim("Y:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/ingressos.csv",
-#                         delim = ";", escape_double = FALSE, trim_ws = TRUE)
-# 
+#ngressos <- read_delim("/Volumes/CGINF2/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/ingressos.csv",
+  #                      delim = ";", escape_double = FALSE, trim_ws = TRUE)
+
 # df_ingressos <-  ingressos |>
 #   filter(`Tipo de Ingresso (Ingresso)` == "Concurso",
 #          `Sem GDF (Ingresso)` == "Sim"
@@ -27,7 +27,7 @@ library(htmltools)
 #     Ingressos = sum(`#qtd_ingresso` )
 #   )
 # 
-# df <- vroom::vroom("Y:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/aposentadorias.csv")
+# df <- vroom::vroom("/Volumes/CGINF2/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/aposentadorias.csv")
 # #glimpse(df_aposent)
 # 
 # df_aposent <- df |>
@@ -37,7 +37,7 @@ library(htmltools)
 #     Total = sum(`#QtdAposentadoria`)
 #   )
 # 
-# df <- vroom::vroom("Y:/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/desligamentos.csv")
+# df <- vroom::vroom("/Volumes/CGINF2/PEP/PEP_reload/PEP_qvd_InOutrasFontes/Fontes_CSV/Infograficos/desligamentos.csv")
 # #glimpse(df_deslig)
 # 
 # df_deslig <- df |>
