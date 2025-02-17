@@ -154,7 +154,7 @@ layout <- tagList(
   )
 )
 
-
+library(htmltools)
 # Salve o layout HTML com os gráficos
 save_html(
   layout,
